@@ -1,0 +1,14 @@
+.main-page-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > span {
+    font-size: 28px;
+    color: white;
+    line-height: 30px;
+  }
+}
