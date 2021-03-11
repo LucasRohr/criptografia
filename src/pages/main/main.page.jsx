@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Tabs } from '../../components'
-import { CryptContent } from './components'
+import { CryptContent, DecryptContent } from './components'
 import KeysIcon from '../../assets/keys.svg'
 
 import './main.style.scss'
@@ -32,7 +32,7 @@ const MainPage = () => {
   const contentOptions = useMemo(
     () => ({
       CRYPT: <CryptContent />,
-      DECRYPT: null,
+      DECRYPT: <DecryptContent />,
     }),
     []
   )
