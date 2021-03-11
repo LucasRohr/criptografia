@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { Tabs } from '../../components'
 import { CryptContent, DecryptContent } from './components'
-import KeysIcon from '../../assets/keys.svg'
+import { KeysIcon } from '../../icons'
 
 import './main.style.scss'
 
@@ -41,7 +41,7 @@ const MainPage = () => {
     <div className="main-page-container">
       <div className="main-header">
         <div className="main-header-logo-container">
-          <img src={KeysIcon} alt="logo" />
+          <KeysIcon className="input-calendar-icon" />
           <span>CryptoSafe</span>
         </div>
 
