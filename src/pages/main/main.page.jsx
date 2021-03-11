@@ -16,14 +16,14 @@ const MainPage = () => {
         id: 'cryptTab',
         name: 'cryptTab',
         value: 'CRYPT',
-        label: 'Criptogragria',
+        label: 'Criptografia',
       },
 
       {
         id: 'decryptTab',
         name: 'decryptTab',
         value: 'DECRYPT',
-        label: 'Descriptogragria',
+        label: 'Descriptografia',
       },
     ],
     []
