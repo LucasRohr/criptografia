@@ -1,14 +1,45 @@
+@import '/src/variables.scss';
+
 .main-page-container {
   width: 100%;
   min-height: 100vh;
-  background-color: black;
+  background-color: $white;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 
-  & > span {
-    font-size: 28px;
-    color: white;
-    line-height: 30px;
+  & > .main-header {
+    max-width: 100%;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 30px;
+
+    & > .main-header-logo-container {
+      display: flex;
+      align-items: center;
+
+      & > img {
+        width: 65px;
+        height: 65px;
+      }
+
+      & > span {
+        font-size: 32px;
+        color: $white;
+        line-height: 30px;
+        margin-left: 12px;
+      }
+    }
+
+    & > span {
+      font-size: 22px;
+      color: $white;
+      line-height: 30px;
+    }
+  }
+
+  & > .main-content {
+    padding: 0 40px;
   }
 }

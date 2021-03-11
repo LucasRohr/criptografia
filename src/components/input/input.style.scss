@@ -1,0 +1,30 @@
+@import '/src/variables.scss';
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  & > .input-label {
+    font-size: 20px;
+    color: $black;
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+
+  & > .input-style {
+    width: 60%;
+    font-size: 28px;
+    color: $gray;
+    line-height: 28px;
+    border: none;
+    border-bottom: 1px solid $primary-light;
+    outline: none;
+    padding-bottom: 8px;
+
+    &::-webkit-input-placeholder {
+      color: $light-gray;
+    }
+  }
+}

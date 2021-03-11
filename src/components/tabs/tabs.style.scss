@@ -1,0 +1,48 @@
+@import '/src/variables.scss';
+
+.tabs-container {
+  display: flex;
+  margin: 70px 0 68px 0;
+}
+
+.tab-option-label {
+  width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 24px;
+  color: $light-gray;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 0 12px 12px;
+  border-bottom: 1px solid $light-gray;
+
+  &:hover {
+    transition: 0.2s;
+    color: $primary-light;
+    border-bottom: 2px solid $primary-light;
+  }
+}
+
+.tab-option-input {
+  display: none;
+
+  &:checked {
+    & + .tab-option-label {
+      color: $primary;
+      border-bottom: 2px solid $primary;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .tabs-container {
+    width: 100%;
+  }
+
+  .tab-option-label {
+    font-size: 16px;
+  }
+}
