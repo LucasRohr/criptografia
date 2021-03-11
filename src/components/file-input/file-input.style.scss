@@ -1,0 +1,50 @@
+@import '/src/variables.scss';
+
+.file-input-wrapper {
+  width: 55%;
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  border: 0.6px solid $primary-light;
+  border-radius: 4px;
+  padding-left: 24px;
+  padding-right: 34px;
+  margin-bottom: 50px;
+
+  & > .file-input-label {
+    font-size: 20px;
+    line-height: 24px;
+    color: $gray;
+    font-weight: 500;
+  }
+
+  & > .file-input {
+    white-space: pre;
+    overflow-wrap: break-word;
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  & > .file-input-icon {
+    & svg {
+      width: 44px;
+      height: 44px;
+      fill: $primary;
+    }
+  }
+
+  & > .file-input-image {
+    width: 52px;
+    height: 52px;
+    border-radius: 4px;
+  }
+}
