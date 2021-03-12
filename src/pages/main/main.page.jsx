@@ -9,6 +9,9 @@ const DEFAULT_TAB = 'CRYPT'
 
 const MainPage = () => {
   const [currentTab, setCurrentTab] = useState(DEFAULT_TAB)
+  const [message, setMessage] = useState('')
+  const [imageFile, setImageFile] = useState('')
+  const [encryptedSymmetricKey, setEncryptedSymmetricKey] = useState('')
 
   const tabOptions = useMemo(
     () => [
@@ -31,10 +34,18 @@ const MainPage = () => {
 
   const contentOptions = useMemo(
     () => ({
-      CRYPT: <CryptContent />,
+      CRYPT: (
+        <CryptContent
+          message={message}
+          setMessage={setMessage}
+          imageFile={imageFile}
+          setImageFile={setImageFile}
+          setEncryptedSymmetricKey={setEncryptedSymmetricKey}
+        />
+      ),
       DECRYPT: <DecryptContent />,
     }),
-    []
+    [message, imageFile]
   )
 
   return (
