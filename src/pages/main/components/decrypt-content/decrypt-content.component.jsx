@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Input } from '../../../../components'
-import { ArrowIcon } from '../../../../icons'
+import { ArrowIcon, ImagePlaceholderIcon } from '../../../../icons'
 import { Result } from '../molecules/result/result.component'
+
 
 import './decrypt-content.style.scss'
 
@@ -26,15 +27,14 @@ const DecryptContent = () => {
 
         <div className="decrypt-content-display-results">
           <div className="decrypt-content-display-results-left">
-            <Result title="Mensagem original">Fimose</Result>
-            <Result title="Chave simétrica pura">Fimose</Result>
+            <Result title="Mensagem original">placeholder</Result>
+            <Result title="Chave simétrica pura">placeholder</Result>
           </div>
           <div className="decrypt-content-display-results-right">
-            
+            <p>Imagem original</p>
+            <ImagePlaceholderIcon/>
           </div>
         </div>
-
-        <div className="decrypt-content-display-right"></div>
       </div>
     </div>
   )
