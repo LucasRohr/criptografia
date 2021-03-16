@@ -10,4 +10,10 @@ export class AsymmetricCrypto {
 
     return crypto.encrypt(value, publicKey, secretKey)
   }
+
+  static decrypt(symmetricKey, publicKey, secretKey) {
+    const { data, nonce } = symmetricKey
+
+    return crypto.decrypt(data, nonce, publicKey, secretKey)
+  }
 }

@@ -14,4 +14,8 @@ export class SymmetricCrypto {
   static encrypt(value, key) {
     return CryptoJS.AES.encrypt(value, key)
   }
+
+  static decrypt(value, key) {
+    return CryptoJS.AES.decrypt(value, key).toString()
+  }
 }

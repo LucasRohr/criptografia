@@ -16,23 +16,26 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncrypt
   })
 
   useEffect(() => {
-    localStorage.setItem('encryptedItems', encryptedItems)
+    localStorage.setItem('encryptedItems', JSON.stringify(encryptedItems))
   }, [encryptedItems])
+
+  useEffect(() => {
+    asymmetricKeyPair && localStorage.setItem('publicKey', asymmetricKeyPair.publicKey)
+  }, [asymmetricKeyPair])
 
   const onPressCrypt = () => {
     const symmetricKey = SymmetricCrypto.generateKey(password)
-
+    console.log(symmetricKey)
     setEncryptedItems({
       message: message && SymmetricCrypto.encrypt(message, symmetricKey).toString(),
       image: imageFile && SymmetricCrypto.encrypt(imageFile, symmetricKey).toString(),
     })
 
-    localStorage.setItem('symmetricKey', symmetricKey)
-
     const keyPair = AsymmetricCrypto.generateKeyPair()
     setAsymmetricKeyPair(keyPair)
-
+    
     const encryptedSymmetricKey = AsymmetricCrypto.encrypt(symmetricKey, keyPair)
+    localStorage.setItem('symmetricKey', JSON.stringify(encryptedSymmetricKey))
 
     setEncryptedSymmetricKey(encryptedSymmetricKey)
   }

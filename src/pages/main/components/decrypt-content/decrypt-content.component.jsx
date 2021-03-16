@@ -1,14 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Button, Input } from '../../../../components'
 import { ArrowIcon, ImagePlaceholderIcon } from '../../../../icons'
+import { AsymmetricCrypto, SymmetricCrypto } from '../../../../crypto'
 import { Result } from '../molecules/result/result.component'
 
 import './decrypt-content.style.scss'
 
 const DecryptContent = () => {
   const [privatekey, setPrivateKey] = useState('')
+  const [pureSymmetricKey, setPureSymmetricKey] = useState(null)
+  const [items, setItems] = useState({
+    message: null,
+    image: null,
+  })
 
-  const onPressDecrypt = () => {}
+  const encryptedSymmetricKey = useMemo(() => JSON.parse(localStorage.getItem('symmetricKey')), [])
+  const encryptedItems = useMemo(() => JSON.parse(localStorage.getItem('encryptedItems')), [])
+  const publicKey = useMemo(() => localStorage.getItem('publicKey'), [])
+
+  const onPressDecrypt = () => {
+    const symmetricKey = AsymmetricCrypto.decrypt(encryptedSymmetricKey, publicKey, privatekey)
+    const message = SymmetricCrypto.decrypt(encryptedItems.message, symmetricKey)
+    const image = SymmetricCrypto.decrypt(encryptedItems.image, symmetricKey)
+    
+    console.log(message)
+    console.log(image)
+
+    setPureSymmetricKey(symmetricKey)
+    setItems({ message, image })
+  }
 
   return (
     <div className="decrypt-content-container">
@@ -30,10 +50,10 @@ const DecryptContent = () => {
         <div className="decrypt-content-display-results">
           <div className="decrypt-content-display-results-left">
             <Result title="Mensagem original" variant="messageDecrypt">
-              placeholder
+              {items.message}
             </Result>
             <Result title="Chave simétrica pura" variant="keyDecrypt">
-              placeholder
+              {pureSymmetricKey}
             </Result>
           </div>
           <div className="decrypt-content-display-results-right">
