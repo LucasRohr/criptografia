@@ -53,13 +53,21 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncrypt
       <div className="crypt-content-display-section">
         <h2 className="crypt-content-display-section-title">Resultados da criptografia</h2>
 
-        <Result alignEnd title="Mensagem criptografada">{encryptedItems.message}</Result>
+        <Result alignEnd title="Mensagem criptografada" variant="message">
+          {encryptedItems.message}
+        </Result>
 
-        <Result alignEnd title="Imagem criptografada">{encryptedItems.image}</Result>
+        <Result alignEnd title="Imagem criptografada" variant="image">
+          {encryptedItems.image}
+        </Result>
 
-        <Result alignEnd title="Chave assimétrica/pública">{asymmetricKeyPair?.publicKey}</Result>
+        <Result alignEnd title="Chave assimétrica/pública" variant="key">
+          {asymmetricKeyPair?.publicKey}
+        </Result>
 
-        <Result alignEnd title="Chave assimétrica/privada">{asymmetricKeyPair?.secretKey}</Result>
+        <Result alignEnd title="Chave assimétrica/privada" variant="key">
+          {asymmetricKeyPair?.secretKey}
+        </Result>
       </div>
     </div>
   )

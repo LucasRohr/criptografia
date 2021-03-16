@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import './result.style.scss'
 
-const Result = ({ title, children, alignEnd }) =>
-  children ? (
+const Result = ({ title, children, alignEnd, variant }) => {
+  const emptyContentOptions = useMemo(
+    () => ({
+      message: 'Nenhuma mensagem foi criptografada até o momento',
+      image: 'Nenhuma imagem foi criptografada até o momento',
+      key: 'Nenhuma chave foi gerada até o momento',
+    }),
+    []
+  )
+
+  return (
     <>
       <p className={`result-title ${alignEnd && 'align-end'}`}>{title}</p>
-      <p className={`result-value ${alignEnd && 'align-end'}`}>{children}</p>
+      <p className={`result-value ${alignEnd && 'align-end'}`}>{children ?? emptyContentOptions[variant]}</p>
     </>
-  ) : null
+  )
+}
 
 export { Result }

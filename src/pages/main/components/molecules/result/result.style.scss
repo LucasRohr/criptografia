@@ -1,12 +1,16 @@
+@import '/src/variables.scss';
+
 .align-end {
   text-align: end;
 }
 
 .result-title {
+  font-size: 23px;
   margin-bottom: 0;
 }
 
 .result-value {
-  color: #586efc;
+  font-size: 23px;
+  color: $primary;
   word-break: break-all;
 }
