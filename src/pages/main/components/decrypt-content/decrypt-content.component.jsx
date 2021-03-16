@@ -29,8 +29,12 @@ const DecryptContent = () => {
 
         <div className="decrypt-content-display-results">
           <div className="decrypt-content-display-results-left">
-            <Result title="Mensagem original">placeholder</Result>
-            <Result title="Chave simétrica pura">placeholder</Result>
+            <Result title="Mensagem original" variant="messageDecrypt">
+              placeholder
+            </Result>
+            <Result title="Chave simétrica pura" variant="keyDecrypt">
+              placeholder
+            </Result>
           </div>
           <div className="decrypt-content-display-results-right">
             <p>Imagem original</p>

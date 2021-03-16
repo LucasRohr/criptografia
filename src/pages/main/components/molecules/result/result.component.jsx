@@ -7,6 +7,8 @@ const Result = ({ title, children, alignEnd, variant }) => {
       message: 'Nenhuma mensagem foi criptografada até o momento',
       image: 'Nenhuma imagem foi criptografada até o momento',
       key: 'Nenhuma chave foi gerada até o momento',
+      messageDecrypt: 'Sem mensagem para apresentar',
+      keyDecrypt: 'Sem chave para apresentar',
     }),
     []
   )
