@@ -1,21 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, FileInput, Input } from '../../../../components'
 import { AsymmetricCrypto, SymmetricCrypto } from '../../../../crypto'
+import { Result } from '../molecules/result/result.component'
 
 import './crypt-content.style.scss'
 
 const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncryptedSymmetricKey }) => {
   const [password, setPassword] = useState('')
 
-  // TO DO: show key pair on screen
   const [asymmetricKeyPair, setAsymmetricKeyPair] = useState(null)
+
+  const [encryptedItems, setEncryptedItems] = useState({
+    message: null,
+    image: null,
+  })
+
+  useEffect(() => {
+    localStorage.setItem('encryptedItems', encryptedItems)
+  }, [encryptedItems])
 
   const onPressCrypt = () => {
     const symmetricKey = SymmetricCrypto.generateKey(password)
 
-    // TO DO: save encrypted data in states
-    const encryptedMessage = SymmetricCrypto.encrypt(message, symmetricKey).toString()
-    const encryptedImage = SymmetricCrypto.encrypt(imageFile, symmetricKey).toString()
+    setEncryptedItems({
+      message: message && SymmetricCrypto.encrypt(message, symmetricKey).toString(),
+      image: imageFile && SymmetricCrypto.encrypt(imageFile, symmetricKey).toString(),
+    })
+
+    localStorage.setItem('symmetricKey', symmetricKey)
 
     const keyPair = AsymmetricCrypto.generateKeyPair()
     setAsymmetricKeyPair(keyPair)
@@ -37,6 +49,17 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncrypt
         <FileInput onChangeFile={setImageFile} variant="IMAGE" />
 
         <Button onClick={onPressCrypt} label="Criptografar" />
+      </div>
+      <div className="crypt-content-display-section">
+        <h2 className="crypt-content-display-section-title">Resultados da criptografia</h2>
+
+        <Result alignEnd title="Mensagem criptografada">{encryptedItems.message}</Result>
+
+        <Result alignEnd title="Imagem criptografada">{encryptedItems.image}</Result>
+
+        <Result alignEnd title="Chave assimétrica/pública">{asymmetricKeyPair?.publicKey}</Result>
+
+        <Result alignEnd title="Chave assimétrica/privada">{asymmetricKeyPair?.secretKey}</Result>
       </div>
     </div>
   )
