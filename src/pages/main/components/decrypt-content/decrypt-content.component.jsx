@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Input } from '../../../../components'
+import { ArrowIcon } from '../../../../icons'
+import { Result } from '../molecules/result/result.component'
 
 import './decrypt-content.style.scss'
 
@@ -17,6 +19,22 @@ const DecryptContent = () => {
         </div>
 
         <Button onClick={onPressDecrypt} label="Descriptografar" />
+      </div>
+      <ArrowIcon className="decrypt-content-arrow-icon"/>
+      <div className="decrypt-content-display-section">
+        <h2 className="decrypt-content-display-section-title">Resultados da descriptografia</h2>
+
+        <div className="decrypt-content-display-results">
+          <div className="decrypt-content-display-results-left">
+            <Result title="Mensagem original">Fimose</Result>
+            <Result title="Chave simétrica pura">Fimose</Result>
+          </div>
+          <div className="decrypt-content-display-results-right">
+            
+          </div>
+        </div>
+
+        <div className="decrypt-content-display-right"></div>
       </div>
     </div>
   )
