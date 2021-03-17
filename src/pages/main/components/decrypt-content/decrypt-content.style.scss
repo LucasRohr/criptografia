@@ -3,7 +3,7 @@
     display: flex;
     margin-top: 50px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   
     & > .decrypt-content-form-section {
       width: 38%;
@@ -36,7 +36,7 @@
 
       & > .decrypt-content-display-section-title {
         font-weight: normal;
-        font-size: 22px;
+        font-size: 28px;
         text-align: end;
         margin-bottom: 36px;
       }
@@ -44,19 +44,19 @@
       & > .decrypt-content-display-results {
         width: 100%;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-end;
 
         & > div {
           flex: 1;
         }
 
-        & > .decrypt-content-display-results-left {
+        & > .decrypt-content-display-results-text {
           display: flex;
           flex-direction: column;
-          margin-right: 40px;
         }
 
-        & > .decrypt-content-display-results-right {
+        & > .decrypt-content-display-results-image {
           display: flex;
           flex-direction: column;
           align-items: flex-end;
