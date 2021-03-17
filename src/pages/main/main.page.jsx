@@ -11,7 +11,12 @@ const MainPage = () => {
   const [currentTab, setCurrentTab] = useState(DEFAULT_TAB)
   const [message, setMessage] = useState('')
   const [imageFile, setImageFile] = useState('')
-  const [encryptedSymmetricKey, setEncryptedSymmetricKey] = useState('')
+  const [cryptData, setCryptData] = useState({
+    message: null,
+    image: null,
+    publicKey: '',
+    symmetricKey: {},
+  })
 
   const tabOptions = useMemo(
     () => [
@@ -40,12 +45,13 @@ const MainPage = () => {
           setMessage={setMessage}
           imageFile={imageFile}
           setImageFile={setImageFile}
-          setEncryptedSymmetricKey={setEncryptedSymmetricKey}
+          cryptData={cryptData}
+          setCryptData={setCryptData}
         />
       ),
-      DECRYPT: <DecryptContent />,
+      DECRYPT: <DecryptContent cryptData={cryptData} />,
     }),
-    [message, imageFile]
+    [message, imageFile, cryptData]
   )
 
   return (

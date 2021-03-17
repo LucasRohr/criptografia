@@ -9,7 +9,7 @@ const FileInput = ({ onChangeFile, variant }) => {
 
   useEffect(() => {
     onChangeFile(file)
-  }, [file])
+  }, [file, onChangeFile])
 
   const inputOptions = useMemo(
     () => ({
