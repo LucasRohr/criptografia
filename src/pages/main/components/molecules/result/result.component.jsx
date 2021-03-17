@@ -16,8 +16,8 @@ const Result = ({ title, children, alignEnd, variant }) => {
   return (
     <>
       <p className={`result-title ${alignEnd && 'align-end'}`}>{title}</p>
-      <p className={`result-value ${alignEnd && 'align-end'} ${variant === 'image' ? 'image-value' : ''}`}>
-        {children ?? emptyContentOptions[variant]}
+      <p className={`result-value ${alignEnd && 'align-end'} image-value`}>
+        {children || emptyContentOptions[variant]}
       </p>
     </>
   )

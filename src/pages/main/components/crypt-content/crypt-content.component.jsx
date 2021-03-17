@@ -5,10 +5,19 @@ import { Result } from '../molecules/result/result.component'
 
 import './crypt-content.style.scss'
 
-const CryptContent = ({ message, setMessage, imageFile, setImageFile, cryptData, setCryptData }) => {
-  const [password, setPassword] = useState('')
+const CryptContent = ({ 
+    message,
+    setMessage,
+    imageFile,
+    setImageFile,
+    cryptData,
+    setCryptData,
+    asymmetricKeyPair,
+    setAsymmetricKeyPair,
+  }) => {
 
-  const [asymmetricKeyPair, setAsymmetricKeyPair] = useState(null)
+  const [password, setPassword] = useState('')
+  const [buttonLabel, setButtonLabel] = useState('Copiar chave privada')
 
   const onPressCrypt = () => {
     const symmetricKey = SymmetricCrypto.generateKey(password)
@@ -22,11 +31,21 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, cryptData,
     const encryptedSymmetricKey = AsymmetricCrypto.encrypt(symmetricKey, keyPair)
 
     setCryptData({
-      message: messageCrypto,
-      image: imageCrypto,
+      message: message && messageCrypto,
+      image: imageFile && imageCrypto,
       publicKey: keyPair?.publicKey,
       symmetricKey: encryptedSymmetricKey,
     })
+  }
+
+  const onPressCopy = () => {
+    const input = document.createElement("input");
+    document.body.appendChild(input);
+    input.value = asymmetricKeyPair?.secretKey
+    input.select();
+    document.execCommand("copy");
+    document.body.removeChild(input);
+    setButtonLabel('Copiada!')
   }
 
   return (
@@ -61,6 +80,12 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, cryptData,
         <Result alignEnd title="Chave assimétrica/privada" variant="key">
           {asymmetricKeyPair?.secretKey}
         </Result>
+
+        <Button 
+          onClick={onPressCopy}
+          label={buttonLabel}
+          small
+        />
       </div>
     </div>
   )

@@ -6,13 +6,8 @@ import { Result } from '../molecules/result/result.component'
 
 import './decrypt-content.style.scss'
 
-const DecryptContent = ({ cryptData }) => {
+const DecryptContent = ({ cryptData, decryptData, setDecryptData }) => {
   const [privatekey, setPrivateKey] = useState('')
-  const [pureSymmetricKey, setPureSymmetricKey] = useState(null)
-  const [items, setItems] = useState({
-    message: null,
-    image: null,
-  })
 
   const encryptedSymmetricKey = useMemo(() => cryptData.symmetricKey, [cryptData])
 
@@ -31,13 +26,12 @@ const DecryptContent = ({ cryptData }) => {
     const message = SymmetricCrypto.decrypt(encryptedItems?.message, symmetricKey)
     const image = SymmetricCrypto.decrypt(encryptedItems?.image, symmetricKey)
 
-    setPureSymmetricKey(symmetricKey)
-    setItems({ message, image })
+    setDecryptData({ message, image, symmetricKey })
   }
 
   const renderImage = () => {
-    if (items?.image) {
-      return <img className="decrypt-content-image" src={items?.image} alt="Imagem" />
+    if (decryptData?.image) {
+      return <img className="decrypt-content-image" src={decryptData?.image} alt="Imagem" />
     }
 
     return <ImagePlaceholderIcon />
@@ -63,17 +57,17 @@ const DecryptContent = ({ cryptData }) => {
         <h2 className="decrypt-content-display-section-title">Resultados da descriptografia</h2>
 
         <div className="decrypt-content-display-results">
-          <div className="decrypt-content-display-results-left">
-            <Result title="Mensagem original" variant="messageDecrypt">
-              {items.message}
+          <div className="decrypt-content-display-results-text">
+            <Result title="Mensagem original" variant="messageDecrypt" alignEnd>
+              {decryptData.message}
             </Result>
 
-            <Result title="Chave simétrica pura" variant="keyDecrypt">
-              {pureSymmetricKey}
+            <Result title="Chave simétrica pura" variant="keyDecrypt" alignEnd>
+              {decryptData.symmetricKey}
             </Result>
           </div>
 
-          <div className="decrypt-content-display-results-right">
+          <div className="decrypt-content-display-results-image">
             <p>Imagem original</p>
 
             {renderImage()}
