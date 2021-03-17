@@ -6,7 +6,7 @@
     align-items: center;
   
     & > .decrypt-content-form-section {
-      width: 40%;
+      width: 38%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -22,13 +22,13 @@
       flex: 1;
 
       & svg {
-        width: 112px;
-        height: 112px;
+        width: 100px;
+        height: 100px;
       }
     }
 
     & > .decrypt-content-display-section {
-      width: 44%;
+      width: 48%;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -53,6 +53,7 @@
         & > .decrypt-content-display-results-left {
           display: flex;
           flex-direction: column;
+          margin-right: 40px;
         }
 
         & > .decrypt-content-display-results-right {
@@ -61,8 +62,15 @@
           align-items: flex-end;
 
           & > div, svg {
-            width: 100%;
-            height: auto;
+            min-width: 220px;
+            min-height: 220px;
+          }
+
+          & > .decrypt-content-image {
+            min-width: 220px;
+            min-height: 220px;
+            max-width: 100%;
+            border-radius: 4px;
           }
         }
       }

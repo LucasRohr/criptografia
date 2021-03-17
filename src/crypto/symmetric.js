@@ -8,7 +8,7 @@ export class SymmetricCrypto {
       keySize: 256 / 32,
     })
 
-    return key.toString
+    return key.toString()
   }
 
   static encrypt(value, key) {
@@ -16,6 +16,6 @@ export class SymmetricCrypto {
   }
 
   static decrypt(value, key) {
-    return CryptoJS.AES.decrypt(value, key).toString()
+    return CryptoJS.AES.decrypt(value, key).toString(CryptoJS.enc.Utf8)
   }
 }

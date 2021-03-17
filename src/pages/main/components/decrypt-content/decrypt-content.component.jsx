@@ -6,7 +6,7 @@ import { Result } from '../molecules/result/result.component'
 
 import './decrypt-content.style.scss'
 
-const DecryptContent = () => {
+const DecryptContent = ({ cryptData }) => {
   const [privatekey, setPrivateKey] = useState('')
   const [pureSymmetricKey, setPureSymmetricKey] = useState(null)
   const [items, setItems] = useState({
@@ -14,20 +14,33 @@ const DecryptContent = () => {
     image: null,
   })
 
-  const encryptedSymmetricKey = useMemo(() => JSON.parse(localStorage.getItem('symmetricKey')), [])
-  const encryptedItems = useMemo(() => JSON.parse(localStorage.getItem('encryptedItems')), [])
-  const publicKey = useMemo(() => localStorage.getItem('publicKey'), [])
+  const encryptedSymmetricKey = useMemo(() => cryptData.symmetricKey, [cryptData])
+
+  const encryptedItems = useMemo(
+    () => ({
+      message: cryptData.message,
+      image: cryptData.image,
+    }),
+    [cryptData]
+  )
+
+  const publicKey = useMemo(() => cryptData.publicKey, [cryptData])
 
   const onPressDecrypt = () => {
     const symmetricKey = AsymmetricCrypto.decrypt(encryptedSymmetricKey, publicKey, privatekey)
-    const message = SymmetricCrypto.decrypt(encryptedItems.message, symmetricKey)
-    const image = SymmetricCrypto.decrypt(encryptedItems.image, symmetricKey)
-    
-    console.log(message)
-    console.log(image)
+    const message = SymmetricCrypto.decrypt(encryptedItems?.message, symmetricKey)
+    const image = SymmetricCrypto.decrypt(encryptedItems?.image, symmetricKey)
 
     setPureSymmetricKey(symmetricKey)
     setItems({ message, image })
+  }
+
+  const renderImage = () => {
+    if (items?.image) {
+      return <img className="decrypt-content-image" src={items?.image} alt="Imagem" />
+    }
+
+    return <ImagePlaceholderIcon />
   }
 
   return (
@@ -43,7 +56,9 @@ const DecryptContent = () => {
 
         <Button onClick={onPressDecrypt} label="Descriptografar" />
       </div>
+
       <ArrowIcon className="decrypt-content-arrow-icon" />
+
       <div className="decrypt-content-display-section">
         <h2 className="decrypt-content-display-section-title">Resultados da descriptografia</h2>
 
@@ -52,13 +67,16 @@ const DecryptContent = () => {
             <Result title="Mensagem original" variant="messageDecrypt">
               {items.message}
             </Result>
+
             <Result title="Chave simétrica pura" variant="keyDecrypt">
               {pureSymmetricKey}
             </Result>
           </div>
+
           <div className="decrypt-content-display-results-right">
             <p>Imagem original</p>
-            <ImagePlaceholderIcon />
+
+            {renderImage()}
           </div>
         </div>
       </div>

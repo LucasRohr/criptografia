@@ -1,43 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, FileInput, Input } from '../../../../components'
 import { AsymmetricCrypto, SymmetricCrypto } from '../../../../crypto'
 import { Result } from '../molecules/result/result.component'
 
 import './crypt-content.style.scss'
 
-const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncryptedSymmetricKey }) => {
+const CryptContent = ({ message, setMessage, imageFile, setImageFile, cryptData, setCryptData }) => {
   const [password, setPassword] = useState('')
 
   const [asymmetricKeyPair, setAsymmetricKeyPair] = useState(null)
 
-  const [encryptedItems, setEncryptedItems] = useState({
-    message: null,
-    image: null,
-  })
-
-  useEffect(() => {
-    localStorage.setItem('encryptedItems', JSON.stringify(encryptedItems))
-  }, [encryptedItems])
-
-  useEffect(() => {
-    asymmetricKeyPair && localStorage.setItem('publicKey', asymmetricKeyPair.publicKey)
-  }, [asymmetricKeyPair])
-
   const onPressCrypt = () => {
     const symmetricKey = SymmetricCrypto.generateKey(password)
-    console.log(symmetricKey)
-    setEncryptedItems({
-      message: message && SymmetricCrypto.encrypt(message, symmetricKey).toString(),
-      image: imageFile && SymmetricCrypto.encrypt(imageFile, symmetricKey).toString(),
-    })
+
+    const messageCrypto = SymmetricCrypto.encrypt(message, symmetricKey)
+    const imageCrypto = SymmetricCrypto.encrypt(imageFile, symmetricKey)
 
     const keyPair = AsymmetricCrypto.generateKeyPair()
     setAsymmetricKeyPair(keyPair)
-    
-    const encryptedSymmetricKey = AsymmetricCrypto.encrypt(symmetricKey, keyPair)
-    localStorage.setItem('symmetricKey', JSON.stringify(encryptedSymmetricKey))
 
-    setEncryptedSymmetricKey(encryptedSymmetricKey)
+    const encryptedSymmetricKey = AsymmetricCrypto.encrypt(symmetricKey, keyPair)
+
+    setCryptData({
+      message: messageCrypto,
+      image: imageCrypto,
+      publicKey: keyPair?.publicKey,
+      symmetricKey: encryptedSymmetricKey,
+    })
   }
 
   return (
@@ -53,15 +42,16 @@ const CryptContent = ({ message, setMessage, imageFile, setImageFile, setEncrypt
 
         <Button onClick={onPressCrypt} label="Criptografar" />
       </div>
+
       <div className="crypt-content-display-section">
         <h2 className="crypt-content-display-section-title">Resultados da criptografia</h2>
 
         <Result alignEnd title="Mensagem criptografada" variant="message">
-          {encryptedItems.message}
+          {cryptData.message?.toString()}
         </Result>
 
         <Result alignEnd title="Imagem criptografada" variant="image">
-          {encryptedItems.image}
+          {cryptData.image?.toString()}
         </Result>
 
         <Result alignEnd title="Chave assimétrica/pública" variant="key">
